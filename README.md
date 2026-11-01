@@ -1,6 +1,6 @@
 # 🏛️ Computer Science & System Design Knowledge Vault
 
-> **A Complete 152-Module Engineering Knowledge Base** covering Hardware Architecture, Java DSA, Relational & Distributed Databases, Backend Engineering, Frontend Deep Dives, Fullstack Integration, Android Development, Large-Scale System Design (HLD & LLD), AWS Cloud, Docker & Kubernetes, Python, Machine Learning / LLMs / RAG, and Forward-Deployed Engineering.
+> **A Comprehensive 152-Module Engineering Knowledge Base** covering Hardware Architecture, Java DSA, Relational & Distributed Databases, Backend Engineering, Frontend Deep Dives, Fullstack Integration, Android Development, Large-Scale System Design (HLD & LLD), AWS Cloud, Docker & Kubernetes, Python, Machine Learning / LLMs / RAG, and Forward-Deployed Engineering.
 
 [![Modules](https://img.shields.io/badge/Modules-152%20Complete-brightgreen)]()
 [![System Design](https://img.shields.io/badge/System%20Design-HLD%20%26%20LLD-blue)]()
@@ -8,6 +8,161 @@
 [![Cloud & DevOps](https://img.shields.io/badge/Cloud-AWS%20%7C%20K8s%20%7C%20Docker-3b82f6)]()
 [![AI & LLM](https://img.shields.io/badge/AI%2FML-PyTorch%20%7C%20Transformers%20%7C%20RAG-purple)]()
 [![License](https://img.shields.io/badge/License-MIT-green)]()
+
+---
+
+## 🏛️ System Design & Distributed Architecture Diagrams
+
+### 1. Hyperscale Distributed System Topology (HLD)
+
+This diagram illustrates the canonical end-to-end architecture for high-concurrency distributed systems covered throughout Section H and Section C:
+
+```mermaid
+flowchart TD
+    subgraph Client_Layer ["📱 Client Layer"]
+        Mobile["Native Android / iOS Apps\n(Jetpack Compose, Swift)"]
+        WebClient["Web Applications\n(Next.js, React 19)"]
+        IoT["IoT & External Systems\n(MQTT / WebSockets)"]
+    end
+
+    subgraph Edge_Security ["🌐 Global Edge & Security Network"]
+        DNS["Route 53 / Anycast DNS\n(Latency-Based Routing & Health Checks)"]
+        CDN["CloudFront / Cloudflare Edge CDN\n(Static Assets, SSL Termination, DDoS Guard)"]
+        WAF["AWS WAF / Shield\n(Rate Limiting & OWASP Rules)"]
+    end
+
+    subgraph Ingress_Routing ["🚪 API Ingress & Gateway Layer"]
+        ALB["Application Load Balancer / NLB\n(L4/L7 Flow Distribution)"]
+        APIGateway["API Gateway (Envoy / Kong)\n(JWT Auth, Token Bucket Rate Limiter, Tracing)"]
+    end
+
+    subgraph Core_Services ["⚙️ Microservices Compute Cluster (EKS / ECS)"]
+        AuthSvc["Auth Service\n(OAuth2 / OIDC / Session Tokens)"]
+        UserSvc["User & Profile Service\n(Domain Driven Design)"]
+        FeedSvc["Feed & Ranking Service\n(Graph & Vector Retrieval)"]
+        PaymentSvc["Payment & Transaction Service\n(Idempotent Saga Pattern)"]
+        NotifSvc["Notification Dispatcher\n(Push, SMS, WebHooks)"]
+    end
+
+    subgraph Event_Stream ["📨 Event Bus & Streaming Backbone"]
+        Kafka[("Apache Kafka Cluster\n(Distributed Event Log, CQRS, CDC via Debezium)")]
+    end
+
+    subgraph Caching_Tier ["⚡ High-Speed Caching Layer"]
+        RedisCluster[("Redis Enterprise Cluster\n(Cluster Sharding, Cache-Aside, Write-Through)")]
+    end
+
+    subgraph Persistence_Tier ["💾 Polyglot Storage & Database Tier"]
+        PGPrimary[("PostgreSQL Primary\n(ACID Writes & WAL Streaming)")]
+        PGReplicas[("PostgreSQL Read Replicas\n(High-Throughput Read Scaling)")]
+        CassandraCluster[("Cassandra / ScyllaDB\n(Wide-Column NoSQL, High-Volume Time-Series)")]
+        DocDB[("MongoDB / DynamoDB\n(Document & Key-Value Schemas)")]
+    end
+
+    subgraph Analytics_OLAP ["📊 Analytical Lakehouse & OLAP Tier"]
+        VectorDB[("Pinecone / Qdrant\n(Vector Embeddings & Semantic Search)")]
+        Lakehouse[("Snowflake / ClickHouse / Apache Iceberg\n(Columnar Analytics & Real-Time Aggregates)")]
+    end
+
+    Client_Layer --> DNS
+    DNS --> CDN
+    CDN --> WAF
+    WAF --> ALB
+    ALB --> APIGateway
+    APIGateway --> Core_Services
+
+    Core_Services <--> RedisCluster
+    Core_Services --> Kafka
+    Kafka --> Core_Services
+    Kafka --> Lakehouse
+
+    UserSvc --> PGPrimary
+    FeedSvc --> PGReplicas
+    PaymentSvc --> PGPrimary
+    PGPrimary -->|WAL Replication| PGReplicas
+    NotifSvc --> CassandraCluster
+    FeedSvc <--> VectorDB
+```
+
+---
+
+### 2. End-to-End Layered Execution Lifecycle (LLD & Microservices)
+
+This sequence diagram maps the complete request lifecycle across client presentation, offline-first caching, network interceptors, gateway validation, and distributed data persistence:
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor User as User
+    participant UI as Jetpack Compose / React UI
+    participant VM as ViewModel / State Manager
+    participant Repo as Repository Pattern
+    participant LocalDB as Local Cache (Room / SQLite)
+    participant Net as Network Interceptor (Auth & Retry)
+    participant Gateway as API Gateway (Envoy)
+    participant Svc as Domain Microservice
+    participant Redis as Redis Cache
+    participant DB as Relational Database
+
+    User->>UI: Trigger Action (e.g., Post Creation)
+    UI->>VM: Dispatch Intent / Event
+    VM->>Repo: Execute createPost(payload)
+    Repo->>LocalDB: Optimistic Write (status: PENDING)
+    LocalDB-->>UI: Instantly render optimistic UI state
+    Repo->>Net: Send HTTP/2 request with Idempotency-Key
+    Net->>Gateway: Signed request + Bearer JWT
+    Gateway->>Gateway: Token verification & Rate limit check
+    Gateway->>Svc: Route to PostService.create()
+    Svc->>Redis: Check idempotency key in cache
+    alt Key already exists (Duplicate Request)
+        Redis-->>Svc: Return cached response
+        Svc-->>Gateway: 200 OK (Idempotent response)
+    else First-time Execution
+        Svc->>DB: Execute Transaction (INSERT post + outbox event)
+        DB-->>Svc: Commit confirmed
+        Svc->>Redis: Cache response with 1-hour TTL
+        Svc-->>Gateway: 201 Created
+    end
+    Gateway-->>Net: 201 Created Response
+    Net-->>Repo: Response payload received
+    Repo->>LocalDB: Update local post (status: SYNCED)
+    LocalDB-->>UI: Emit updated StateFlow to UI
+```
+
+---
+
+### 3. The 55-Phase System Design Interview Execution Framework
+
+A structured methodology for tackling complex Large-Scale System Design problems in top-tier engineering interviews:
+
+```mermaid
+flowchart LR
+    subgraph Step1 ["Phase 1: Clarification"]
+        P1["1. Scope & Constraints\n2. Functional Requirements\n3. Non-Functional SLAs (99.99%)"]
+    end
+
+    subgraph Step2 ["Phase 2: Estimation"]
+        P2["4. DAU / MAU & QPS Math\n5. Read / Write Ratios\n6. Storage & Bandwidth Budgets"]
+    end
+
+    subgraph Step3 ["Phase 3: API Contracts"]
+        P3["7. REST / gRPC Schemas\n8. Pagination & Headers\n9. Error Codes & Idempotency"]
+    end
+
+    subgraph Step4 ["Phase 4: Data Modeling"]
+        P4["10. Relational vs NoSQL\n11. Sharding Keys\n12. Indexing Strategy"]
+    end
+
+    subgraph Step5 ["Phase 5: High-Level Design"]
+        P5["13. Gateway & Balancers\n14. Stateless Microservices\n15. Caching & Queue Topology"]
+    end
+
+    subgraph Step6 ["Phase 6: Deep Dives"]
+        P6["16. Bottleneck Resolution\n17. Consensus & Replication\n18. Disaster Recovery"]
+    end
+
+    Step1 --> Step2 --> Step3 --> Step4 --> Step5 --> Step6
+```
 
 ---
 
@@ -57,9 +212,9 @@ cs-system-design-vault/
 
 ## 🎯 How to Use This Vault
 
-- **For Technical Interviews (HLD/LLD)**: Start with `H_System_Design/` alongside `C_DBMS_Databases/` and `I_AWS_Cloud/`.
-- **For Coding Practice & DSA**: Jump into `B_DSA_Java/` for deep, pattern-by-pattern derivations and real hardware memory models.
-- **For AI/ML Engineering**: Follow the sequential path in `L_AI_ML_DeepLearning/` from mathematical foundations to modern Transformer and RAG deployments.
+- **For Technical Interviews (HLD/LLD)**: Start with [`H_System_Design/`](H_System_Design/) alongside [`C_DBMS_Databases/`](C_DBMS_Databases/) and [`I_AWS_Cloud/`](I_AWS_Cloud/).
+- **For Coding Practice & DSA**: Jump into [`B_DSA_Java/`](B_DSA_Java/) for deep, pattern-by-pattern derivations and real hardware memory models.
+- **For AI/ML Engineering**: Follow the sequential path in [`L_AI_ML_DeepLearning/`](L_AI_ML_DeepLearning/) from mathematical foundations to modern Transformer and RAG deployments.
 - **Master Registry**: Explore [`00_MASTER_INDEX.md`](00_MASTER_INDEX.md) for individual file checklists, key concept indices, and progress tracking.
 
 ---
