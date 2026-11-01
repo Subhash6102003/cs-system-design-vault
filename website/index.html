@@ -21,19 +21,20 @@
             mono: ['"JetBrains Mono"', 'monospace'],
           },
           colors: {
-            bg: '#080C14',
-            surface: '#0F1624',
-            surfaceHover: '#172236',
-            surfaceCard: '#111A2B',
-            border: '#1B273D',
-            accent: '#10B981',
-            accentEmerald: '#34D399',
-            accentCyan: '#06B6D4',
-            accentIndigo: '#818CF8',
-            accentPurple: '#A855F7',
-            accentAmber: '#F59E0B',
-            textPrimary: '#F1F5F9',
-            textMuted: '#94A3B8'
+            bg: '#141413',
+            surface: '#1C1C1A',
+            surfaceCard: '#22221F',
+            surfaceHover: '#292925',
+            border: '#2C2C28',
+            borderSubtle: '#242421',
+            accent: '#758864',
+            accentHover: '#657755',
+            accentAmber: '#C29358',
+            warmStone: '#8A847C',
+            warmSand: '#D6CEBE',
+            textPrimary: '#FAF9F5',
+            textMuted: '#94918B',
+            textDim: '#6E6B65'
           }
         }
       }
@@ -42,352 +43,334 @@
 
   <style>
     body {
-      background-color: #080C14;
-      color: #F1F5F9;
+      background-color: #141413;
+      color: #FAF9F5;
       font-family: 'Space Grotesk', sans-serif;
       -webkit-font-smoothing: antialiased;
     }
     ::selection {
-      background: rgba(16, 185, 129, 0.25);
-      color: #34D399;
+      background: rgba(117, 136, 100, 0.25);
+      color: #FAF9F5;
     }
     .panel {
-      background: linear-gradient(180deg, #10192A 0%, #0A101C 100%);
-      border: 1px solid #1B273D;
+      background-color: #1C1C1A;
+      border: 1px solid #2C2C28;
     }
-    .panel:hover {
-      border-color: #273959;
-      transition: all 200ms ease;
-    }
-    .gradient-emerald {
-      background: linear-gradient(135deg, #F1F5F9 0%, #94A3B8 50%, #10B981 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .grid-lines {
-      background-size: 32px 32px;
-      background-image: 
-        linear-gradient(to right, rgba(27, 39, 61, 0.4) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(27, 39, 61, 0.4) 1px, transparent 1px);
+    .panel-hover:hover {
+      background-color: #21211E;
+      border-color: #383832;
+      transition: background-color 160ms ease, border-color 160ms ease;
     }
   </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between selection:bg-accent/20">
+<body class="min-h-screen flex flex-col justify-between">
 
-  <!-- TOP PROMO BANNER -->
-  <div class="bg-gradient-to-r from-accent/15 via-accentIndigo/15 to-accentCyan/15 border-b border-border/80 px-4 py-2 text-center text-xs font-mono text-textMuted flex items-center justify-center gap-3">
-    <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-accent/20 text-accent font-semibold text-[11px]">
-      <span class="w-1.5 h-1.5 rounded-full bg-accent animate-ping"></span>
-      152 MODULES READY
+  <!-- MINIMAL PROMO BANNER -->
+  <div class="border-b border-border/80 bg-surface/50 px-6 py-2.5 text-center text-xs font-mono text-textMuted flex items-center justify-center gap-3">
+    <span class="text-[11px] uppercase tracking-wider text-accent font-semibold px-2 py-0.5 rounded bg-surface border border-border">
+      152 Modules Ready
     </span>
     <span>HLD & LLD • Java DSA • Distributed Systems • AWS Cloud • AI/LLM</span>
-    <a href="https://github.com/Subhash6102003/cs-system-design-vault" target="_blank" rel="noreferrer" class="text-textPrimary hover:text-accent font-semibold underline underline-offset-2 transition-colors ml-1">
-      Star on GitHub ⭐
+    <span class="text-textDim hidden sm:inline">•</span>
+    <a href="https://github.com/Subhash6102003/cs-system-design-vault" target="_blank" rel="noreferrer" class="text-textPrimary hover:text-accent font-medium underline underline-offset-4 transition-colors hidden sm:inline">
+      View on GitHub ↗
     </a>
   </div>
 
   <!-- NAVIGATION HEADER -->
-  <header class="border-b border-border bg-bg/95 backdrop-blur sticky top-0 z-40 px-6 sm:px-12 py-4 flex items-center justify-between">
+  <header class="border-b border-border bg-bg/95 sticky top-0 z-40 px-6 sm:px-12 py-3.5 flex items-center justify-between">
     <div class="flex items-center gap-3">
-      <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-accent to-accentIndigo flex items-center justify-center font-bold text-bg text-sm shadow-lg shadow-accent/20 font-mono">
-        SD
-      </div>
-      <div>
-        <a href="#overview" class="text-base font-bold tracking-tight text-textPrimary hover:text-accent transition-colors flex items-center gap-2">
-          SystemVault
-        </a>
-      </div>
-      <span class="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded bg-surface border border-border text-accent">
+      <a href="#overview" class="text-base font-semibold tracking-tight text-textPrimary hover:text-accent transition-colors">
+        SystemVault
+      </a>
+      <span class="text-[11px] font-mono uppercase tracking-wider px-2 py-0.5 rounded bg-surface border border-border text-textMuted">
         152 Deep Dives
       </span>
     </div>
 
     <!-- Nav Items -->
     <nav class="hidden md:flex items-center gap-7 text-xs text-textMuted font-medium">
+      <a href="#overview" class="hover:text-textPrimary transition-colors">Overview</a>
+      <a href="#blueprints" class="hover:text-textPrimary transition-colors">Visual Blueprints</a>
       <a href="#domains" class="hover:text-textPrimary transition-colors">14 Domains</a>
-      <a href="#media-showcase" class="hover:text-textPrimary transition-colors">Visual Blueprints</a>
       <a href="#framework" class="hover:text-textPrimary transition-colors">55-Phase HLD</a>
-      <a href="#curriculum" class="hover:text-textPrimary transition-colors">Curriculum Index</a>
-      <a href="https://github.com/Subhash6102003/cs-system-design-vault" target="_blank" rel="noreferrer" class="text-accent hover:text-accentEmerald font-mono text-xs flex items-center gap-1 font-semibold">
+      <a href="#quickstart" class="hover:text-textPrimary transition-colors">Clone & Study</a>
+      <a href="https://github.com/Subhash6102003/cs-system-design-vault" target="_blank" rel="noreferrer" class="hover:text-accent transition-colors font-mono text-[11px] flex items-center gap-1">
         GitHub ↗
       </a>
-      <a href="https://www.linkedin.com/in/subhash-maurya-656905243/" target="_blank" rel="noreferrer" class="hover:text-textPrimary font-mono text-xs flex items-center gap-1">
+      <a href="https://www.linkedin.com/in/subhash-maurya-656905243/" target="_blank" rel="noreferrer" class="hover:text-textPrimary transition-colors font-mono text-[11px] flex items-center gap-1">
         LinkedIn ↗
       </a>
     </nav>
 
     <!-- Header Action Button -->
-    <a href="https://github.com/Subhash6102003/cs-system-design-vault" target="_blank" rel="noreferrer" class="px-4 py-2 bg-gradient-to-r from-accent to-emerald-600 hover:opacity-95 text-bg font-bold text-xs rounded-lg transition-all shadow-md shadow-accent/20 flex items-center gap-2">
-      <svg class="w-4 h-4 fill-current" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
-      <span>Browse 152 Files</span>
+    <a href="https://github.com/Subhash6102003/cs-system-design-vault" target="_blank" rel="noreferrer" class="px-3.5 py-1.5 bg-accent hover:bg-accentHover text-textPrimary font-medium text-xs rounded transition-colors flex items-center gap-1.5">
+      <span>Star on GitHub</span>
     </a>
   </header>
 
   <!-- MAIN BODY -->
-  <main class="flex-1 max-w-6xl mx-auto w-full px-6 sm:px-12 py-14 flex flex-col gap-24">
+  <main class="flex-1 max-w-5xl mx-auto w-full px-6 sm:px-12 py-14 flex flex-col gap-20">
 
     <!-- HERO SECTION -->
-    <section id="overview" class="flex flex-col gap-6 max-w-3xl pt-4">
-      <div class="inline-flex items-center gap-2.5 text-xs font-mono text-accent">
-        <span class="w-2 h-2 rounded-full bg-accent"></span>
-        <span class="tracking-widest uppercase font-semibold">Institutional Engineering Knowledge Base</span>
+    <section id="overview" class="flex flex-col gap-5 max-w-3xl pt-2">
+      <div class="inline-flex items-center gap-2 text-xs font-mono text-accent">
+        <span>●</span>
+        <span class="uppercase tracking-wider">Engineering Knowledge Base</span>
       </div>
 
-      <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight leading-[1.1] gradient-emerald">
+      <h1 class="text-3xl sm:text-5xl font-semibold tracking-tight text-textPrimary leading-tight">
         152 modules of hyperscale system design & deep engineering.
       </h1>
 
-      <p class="text-base sm:text-lg text-textMuted leading-relaxed font-normal">
-        From low-level CPU cache lines and virtual memory pages to distributed messaging topologies, PostgreSQL WAL replication, high-scale interview architectures, and Transformer fine-tuning.
+      <p class="text-sm sm:text-base text-textMuted leading-relaxed max-w-2xl font-normal">
+        From low-level CPU cache lines and virtual memory paging to distributed messaging topologies, PostgreSQL WAL replication, high-scale interview architectures, and Transformer fine-tuning.
       </p>
 
-      <!-- Stat Badges -->
+      <!-- Technical Stack Pills -->
       <div class="flex flex-wrap items-center gap-2 pt-2">
-        <span class="px-3 py-1 rounded-md bg-surface border border-border text-xs font-mono text-accent">152 Total Files</span>
-        <span class="px-3 py-1 rounded-md bg-surface border border-border text-xs font-mono text-textPrimary">14 Engineering Domains</span>
-        <span class="px-3 py-1 rounded-md bg-surface border border-border text-xs font-mono text-accentIndigo">55-Phase HLD Framework</span>
-        <span class="px-3 py-1 rounded-md bg-surface border border-border text-xs font-mono text-accentCyan">Java DSA LeetCode Patterns</span>
-        <span class="px-3 py-1 rounded-md bg-surface border border-border text-xs font-mono text-accentAmber">100% Free & Open Source</span>
+        <span class="px-2.5 py-1 rounded bg-surface border border-border text-[11px] font-mono text-textPrimary">152 Total Files</span>
+        <span class="px-2.5 py-1 rounded bg-surface border border-border text-[11px] font-mono text-textPrimary">14 Engineering Domains</span>
+        <span class="px-2.5 py-1 rounded bg-surface border border-border text-[11px] font-mono text-textPrimary">55-Phase HLD Framework</span>
+        <span class="px-2.5 py-1 rounded bg-surface border border-border text-[11px] font-mono text-textPrimary">Java DSA Patterns</span>
+        <span class="px-2.5 py-1 rounded bg-surface border border-border text-[11px] font-mono text-textMuted">MIT License</span>
       </div>
 
       <!-- Action Buttons -->
-      <div class="flex flex-wrap items-center gap-4 pt-4">
-        <a href="https://github.com/Subhash6102003/cs-system-design-vault" target="_blank" rel="noreferrer" class="px-6 py-3 bg-accent hover:bg-emerald-500 text-bg font-bold text-sm rounded-lg transition-colors flex items-center gap-2.5 shadow-lg shadow-accent/20">
+      <div class="flex flex-wrap items-center gap-3 pt-3">
+        <a href="https://github.com/Subhash6102003/cs-system-design-vault" target="_blank" rel="noreferrer" class="px-5 py-2.5 bg-accent hover:bg-accentHover text-textPrimary font-medium text-xs rounded transition-colors flex items-center gap-2">
           <span>Clone Vault on GitHub</span>
           <span>→</span>
         </a>
 
-        <a href="#media-showcase" class="px-6 py-3 panel text-textPrimary hover:bg-surfaceHover font-semibold text-sm rounded-lg transition-colors flex items-center gap-2">
-          <span>Explore Visual Blueprints</span>
+        <a href="#blueprints" class="px-5 py-2.5 panel panel-hover text-textPrimary font-medium text-xs rounded transition-colors flex items-center gap-2">
+          <span>Explore Blueprints</span>
         </a>
       </div>
     </section>
 
-    <!-- MEDIA & VISUAL BLUEPRINTS (MEDIA SHOWCASE SLOT) -->
-    <section id="media-showcase" class="flex flex-col gap-6">
-      <div class="flex flex-col gap-1.5">
-        <span class="text-xs font-mono uppercase text-accent tracking-wider font-semibold">01 • Architectural Blueprints</span>
-        <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-textPrimary">
+    <!-- VISUAL BLUEPRINTS SHOWCASE (FOR LINKEDIN SCREENSHOTS & PRESENTATION) -->
+    <section id="blueprints" class="flex flex-col gap-6">
+      <div class="flex flex-col gap-1">
+        <span class="text-xs font-mono uppercase text-accent tracking-wider font-semibold">01 • System Blueprints</span>
+        <h2 class="text-xl sm:text-2xl font-semibold tracking-tight text-textPrimary">
           Visual System Topologies & Interview Models
         </h2>
-        <p class="text-xs sm:text-sm text-textMuted">
-          Interactive architectural diagrams and request lifecycles crafted for high-retention learning.
+        <p class="text-xs text-textMuted leading-relaxed max-w-xl">
+          Structured architectural diagrams and request lifecycles crafted for high-retention engineering mastery.
         </p>
       </div>
 
-      <!-- 3 Blueprint Showcase Panels -->
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <!-- 3 Structured Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
 
-        <!-- Panel 1: Hyperscale HLD -->
-        <div class="panel rounded-xl overflow-hidden border border-border flex flex-col group">
-          <div class="bg-surface px-4 py-3 border-b border-border flex items-center justify-between">
-            <span class="text-xs font-mono text-accent font-bold">HLD • TOPOLOGY</span>
-            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-accent/10 text-accent">Section H</span>
+        <!-- Card 1: Hyperscale HLD -->
+        <div class="panel panel-hover p-6 rounded-lg flex flex-col justify-between gap-6 block">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-mono text-accent font-medium">HLD TOPOLOGY</span>
+              <span class="text-[10px] font-mono text-textDim border border-border px-1.5 py-0.5 rounded">Section H</span>
+            </div>
+            <h3 class="text-base font-semibold text-textPrimary">Global Distributed Architecture</h3>
+            <p class="text-xs text-textMuted leading-relaxed font-normal">
+              Anycast DNS routing, CloudFront Edge CDN, AWS WAF rate limiters, Envoy Gateway, decoupled microservices, and Kafka event streaming with CQRS.
+            </p>
           </div>
-          <div class="p-6 bg-gradient-to-b from-surfaceCard to-bg flex-1 flex flex-col justify-between gap-5">
-            <div class="space-y-3">
-              <h3 class="text-lg font-bold text-textPrimary">Global Distributed Architecture</h3>
-              <p class="text-xs text-textMuted leading-relaxed">
-                Anycast DNS routing, CloudFront Edge CDN, WAF rate limiters, Envoy Gateway, decoupled microservices, and Kafka event bus streaming with CQRS.
-              </p>
-            </div>
-            <div class="p-3 rounded-lg bg-bg border border-border text-[11px] font-mono text-accentEmerald flex items-center justify-between">
-              <span>● Instagram & WhatsApp Blueprints</span>
-              <span>100k+ RPS</span>
-            </div>
+          <div class="pt-3 border-t border-border flex items-center justify-between text-[11px] font-mono text-textMuted">
+            <span>Systems Covered</span>
+            <span class="text-textPrimary font-medium">Instagram, WhatsApp, Rate Limiters</span>
           </div>
         </div>
 
-        <!-- Panel 2: End-to-End LLD & Flow -->
-        <div class="panel rounded-xl overflow-hidden border border-border flex flex-col group">
-          <div class="bg-surface px-4 py-3 border-b border-border flex items-center justify-between">
-            <span class="text-xs font-mono text-accentIndigo font-bold">LLD • LIFECYCLE</span>
-            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-accentIndigo/10 text-accentIndigo">Section D & G</span>
+        <!-- Card 2: LLD Lifecycle -->
+        <div class="panel panel-hover p-6 rounded-lg flex flex-col justify-between gap-6 block">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-mono text-warmStone font-medium">LLD PIPELINE</span>
+              <span class="text-[10px] font-mono text-textDim border border-border px-1.5 py-0.5 rounded">Section D & G</span>
+            </div>
+            <h3 class="text-base font-semibold text-textPrimary">Client-to-Database Pipeline</h3>
+            <p class="text-xs text-textMuted leading-relaxed font-normal">
+              Jetpack Compose UI state, optimistic Room cache updates, network interceptors with Idempotency-Keys, and ACID write path commits with WAL logging.
+            </p>
           </div>
-          <div class="p-6 bg-gradient-to-b from-surfaceCard to-bg flex-1 flex flex-col justify-between gap-5">
-            <div class="space-y-3">
-              <h3 class="text-lg font-bold text-textPrimary">Client-to-Database Pipeline</h3>
-              <p class="text-xs text-textMuted leading-relaxed">
-                Jetpack Compose UI state, optimistic Room cache updates, network interceptors with Idempotency-Keys, and ACID write path commits with WAL logging.
-              </p>
-            </div>
-            <div class="p-3 rounded-lg bg-bg border border-border text-[11px] font-mono text-accentIndigo flex items-center justify-between">
-              <span>● Clean Architecture & Flow</span>
-              <span>Zero-Loss</span>
-            </div>
+          <div class="pt-3 border-t border-border flex items-center justify-between text-[11px] font-mono text-textMuted">
+            <span>Pattern</span>
+            <span class="text-textPrimary font-medium">Clean Architecture & Saga</span>
           </div>
         </div>
 
-        <!-- Panel 3: 55-Phase Interview Blueprint -->
-        <div class="panel rounded-xl overflow-hidden border border-border flex flex-col group">
-          <div class="bg-surface px-4 py-3 border-b border-border flex items-center justify-between">
-            <span class="text-xs font-mono text-accentCyan font-bold">INTERVIEW • BLUEPRINT</span>
-            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-accentCyan/10 text-accentCyan">File 098B</span>
+        <!-- Card 3: 55-Phase Interview Blueprint -->
+        <div class="panel panel-hover p-6 rounded-lg flex flex-col justify-between gap-6 block">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-mono text-accentAmber font-medium">INTERVIEW BLUEPRINT</span>
+              <span class="text-[10px] font-mono text-textDim border border-border px-1.5 py-0.5 rounded">File 098B</span>
+            </div>
+            <h3 class="text-base font-semibold text-textPrimary">The 55-Phase HLD Mastery</h3>
+            <p class="text-xs text-textMuted leading-relaxed font-normal">
+              A battle-tested 6-stage interview execution framework: Requirements Clarification, QPS Math, API Schemas, Sharding Keys, and Bottleneck Resolution.
+            </p>
           </div>
-          <div class="p-6 bg-gradient-to-b from-surfaceCard to-bg flex-1 flex flex-col justify-between gap-5">
-            <div class="space-y-3">
-              <h3 class="text-lg font-bold text-textPrimary">The 55-Phase HLD Mastery</h3>
-              <p class="text-xs text-textMuted leading-relaxed">
-                The battle-tested 6-stage interview execution framework: Requirements Clarification, QPS Estimation, API Schemas, Sharding Keys, and Deep-Dive Recovery.
-              </p>
-            </div>
-            <div class="p-3 rounded-lg bg-bg border border-border text-[11px] font-mono text-accentCyan flex items-center justify-between">
-              <span>● Complete 55-Phase Guide</span>
-              <span>FAANG Ready</span>
-            </div>
+          <div class="pt-3 border-t border-border flex items-center justify-between text-[11px] font-mono text-textMuted">
+            <span>Format</span>
+            <span class="text-textPrimary font-medium">FAANG Interview Framework</span>
           </div>
         </div>
 
       </div>
     </section>
 
-    <!-- 14 DOMAINS OVERVIEW -->
+    <!-- 14 DOMAINS GRID -->
     <section id="domains" class="flex flex-col gap-6">
-      <div class="flex flex-col gap-1.5">
+      <div class="flex flex-col gap-1">
         <span class="text-xs font-mono uppercase text-accent tracking-wider font-semibold">02 • Comprehensive Curriculum</span>
-        <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-textPrimary">
-          14 Specialized Engineering Domains
+        <h2 class="text-xl sm:text-2xl font-semibold tracking-tight text-textPrimary">
+          Core Engineering Domains
         </h2>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-xs">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         
-        <div class="panel p-5 rounded-xl flex flex-col justify-between gap-3">
+        <div class="panel p-5 rounded-lg flex flex-col justify-between gap-3">
           <div>
             <div class="flex items-center justify-between mb-2">
-              <span class="font-mono text-accent font-bold">Domain A</span>
-              <span class="text-[11px] font-mono text-textMuted">6 Files</span>
+              <span class="text-xs font-mono text-accent font-medium">Domain A</span>
+              <span class="text-[11px] font-mono text-textDim">6 Files</span>
             </div>
-            <h4 class="text-sm font-bold text-textPrimary mb-1">Hardware & CS Foundations</h4>
-            <p class="text-[11px] text-textMuted">CPU clock cycles, pipelining, L1-L3 cache lines, virtual memory paging, MMU/TLB, and JVM internals.</p>
+            <h4 class="text-sm font-semibold text-textPrimary mb-1">Hardware & CS Foundations</h4>
+            <p class="text-xs text-textMuted leading-relaxed">CPU clock cycles, pipelining, L1-L3 cache lines, virtual memory paging, MMU/TLB, and JVM internals.</p>
           </div>
         </div>
 
-        <div class="panel p-5 rounded-xl flex flex-col justify-between gap-3">
+        <div class="panel p-5 rounded-lg flex flex-col justify-between gap-3">
           <div>
             <div class="flex items-center justify-between mb-2">
-              <span class="font-mono text-accentIndigo font-bold">Domain B</span>
-              <span class="text-[11px] font-mono text-textMuted">19 Files</span>
+              <span class="text-xs font-mono text-warmStone font-medium">Domain B</span>
+              <span class="text-[11px] font-mono text-textDim">19 Files</span>
             </div>
-            <h4 class="text-sm font-bold text-textPrimary mb-1">DSA in Java</h4>
-            <p class="text-[11px] text-textMuted">Two pointers, sliding window, monotonic stacks, AVL/Red-Black trees, 1D/2D DP, Dijkstra, and Tries.</p>
+            <h4 class="text-sm font-semibold text-textPrimary mb-1">DSA in Java</h4>
+            <p class="text-xs text-textMuted leading-relaxed">Two pointers, sliding window, monotonic stacks, AVL/Red-Black trees, 1D/2D DP, Dijkstra, and Tries.</p>
           </div>
         </div>
 
-        <div class="panel p-5 rounded-xl flex flex-col justify-between gap-3">
+        <div class="panel p-5 rounded-lg flex flex-col justify-between gap-3">
           <div>
             <div class="flex items-center justify-between mb-2">
-              <span class="font-mono text-accentCyan font-bold">Domain C</span>
-              <span class="text-[11px] font-mono text-textMuted">10 Files</span>
+              <span class="text-xs font-mono text-accentAmber font-medium">Domain C</span>
+              <span class="text-[11px] font-mono text-textDim">10 Files</span>
             </div>
-            <h4 class="text-sm font-bold text-textPrimary mb-1">DBMS & Storage Engines</h4>
-            <p class="text-[11px] text-textMuted">Relational theory, SQL window functions, PostgreSQL MVCC & WAL write paths, B-Tree/GIN indexing, and Kafka.</p>
+            <h4 class="text-sm font-semibold text-textPrimary mb-1">DBMS & Storage Engines</h4>
+            <p class="text-xs text-textMuted leading-relaxed">Relational theory, SQL window functions, PostgreSQL MVCC & WAL write paths, B-Tree/GIN indexing, and Kafka.</p>
           </div>
         </div>
 
-        <div class="panel p-5 rounded-xl flex flex-col justify-between gap-3">
+        <div class="panel p-5 rounded-lg flex flex-col justify-between gap-3">
           <div>
             <div class="flex items-center justify-between mb-2">
-              <span class="font-mono text-accentEmerald font-bold">Domain D</span>
-              <span class="text-[11px] font-mono text-textMuted">16 Files</span>
+              <span class="text-xs font-mono text-accent font-medium">Domain D</span>
+              <span class="text-[11px] font-mono text-textDim">16 Files</span>
             </div>
-            <h4 class="text-sm font-bold text-textPrimary mb-1">Backend & Microservices</h4>
-            <p class="text-[11px] text-textMuted">REST/gRPC, Spring Boot, Node.js, OAuth2/OIDC, Circuit Breakers, CQRS, and Idempotency patterns.</p>
+            <h4 class="text-sm font-semibold text-textPrimary mb-1">Backend & Microservices</h4>
+            <p class="text-xs text-textMuted leading-relaxed">REST/gRPC, Spring Boot, Node.js, OAuth2/OIDC, Circuit Breakers, CQRS, and Idempotency patterns.</p>
           </div>
         </div>
 
-        <div class="panel p-5 rounded-xl flex flex-col justify-between gap-3">
+        <div class="panel p-5 rounded-lg flex flex-col justify-between gap-3">
           <div>
             <div class="flex items-center justify-between mb-2">
-              <span class="font-mono text-accentAmber font-bold">Domain G</span>
-              <span class="text-[11px] font-mono text-textMuted">16 Files</span>
+              <span class="text-xs font-mono text-warmStone font-medium">Domain G</span>
+              <span class="text-[11px] font-mono text-textDim">16 Files</span>
             </div>
-            <h4 class="text-sm font-bold text-textPrimary mb-1">Android & Clean Architecture</h4>
-            <p class="text-[11px] text-textMuted">ART runtime, Jetpack Compose recomposition, Coroutines, Flow, Room DB, Hilt, and offline-first sync.</p>
+            <h4 class="text-sm font-semibold text-textPrimary mb-1">Android & Clean Architecture</h4>
+            <p class="text-xs text-textMuted leading-relaxed">ART runtime, Jetpack Compose recomposition, Coroutines, Flow, Room DB, Hilt, and offline-first sync.</p>
           </div>
         </div>
 
-        <div class="panel p-5 rounded-xl flex flex-col justify-between gap-3">
+        <div class="panel p-5 rounded-lg flex flex-col justify-between gap-3">
           <div>
             <div class="flex items-center justify-between mb-2">
-              <span class="font-mono text-accentPurple font-bold">Domain L</span>
-              <span class="text-[11px] font-mono text-textMuted">18 Files</span>
+              <span class="text-xs font-mono text-accentAmber font-medium">Domain L</span>
+              <span class="text-[11px] font-mono text-textDim">18 Files</span>
             </div>
-            <h4 class="text-sm font-bold text-textPrimary mb-1">AI, ML, Transformers & RAG</h4>
-            <p class="text-[11px] text-textMuted">PyTorch tensors, self-attention mechanisms, Transformer architectures, LoRA fine-tuning, and Vector DBs.</p>
+            <h4 class="text-sm font-semibold text-textPrimary mb-1">AI, ML, Transformers & RAG</h4>
+            <p class="text-xs text-textMuted leading-relaxed">PyTorch tensors, self-attention mechanisms, Transformer architectures, LoRA fine-tuning, and Vector DBs.</p>
           </div>
         </div>
 
       </div>
     </section>
 
-    <!-- THE 55-PHASE INTERVIEW BLUEPRINT STEPS -->
-    <section id="framework" class="panel p-8 rounded-2xl flex flex-col gap-6">
-      <div class="flex flex-col gap-1.5">
-        <span class="text-xs font-mono uppercase text-accent tracking-wider font-semibold">03 • System Design Blueprint</span>
-        <h2 class="text-2xl font-bold tracking-tight text-textPrimary">The 55-Phase System Design Framework</h2>
-        <p class="text-xs text-textMuted">How top engineers systematically approach large-scale architecture interviews.</p>
+    <!-- 55-PHASE INTERVIEW FRAMEWORK -->
+    <section id="framework" class="panel rounded-lg p-6 sm:p-8 flex flex-col gap-5">
+      <div class="flex flex-col gap-1">
+        <span class="text-xs font-mono uppercase text-accent tracking-wider font-semibold">03 • Structured Methodology</span>
+        <h3 class="text-lg font-semibold text-textPrimary">The 55-Phase System Design Framework</h3>
+        <p class="text-xs text-textMuted">How engineers systematically solve high-concurrency architecture interviews.</p>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs font-mono">
-        <div class="p-4 bg-bg rounded-lg border border-border">
-          <div class="text-accent font-bold mb-1">Step 1: Scoping</div>
-          <div class="text-textPrimary font-semibold mb-1">Requirements & SLA</div>
-          <p class="text-textMuted text-[11px]">Separate functional vs non-functional requirements. Define 99.99% availability and P99 latency bounds.</p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs font-mono">
+        <div class="p-4 bg-bg rounded border border-border">
+          <div class="text-accent font-semibold mb-1">Step 1: Scoping</div>
+          <div class="text-textPrimary font-sans font-medium text-xs mb-1">Requirements & SLA</div>
+          <p class="text-textMuted text-[11px] font-sans">Separate functional vs non-functional constraints. Define availability and P99 latency budgets.</p>
         </div>
 
-        <div class="p-4 bg-bg rounded-lg border border-border">
-          <div class="text-accentCyan font-bold mb-1">Step 2: Math</div>
-          <div class="text-textPrimary font-semibold mb-1">Capacity Estimation</div>
-          <p class="text-textMuted text-[11px]">DAU/MAU calculations, read-to-write ratios, QPS peak multipliers, and 5-year storage projections.</p>
+        <div class="p-4 bg-bg rounded border border-border">
+          <div class="text-warmSand font-semibold mb-1">Step 2: Math</div>
+          <div class="text-textPrimary font-sans font-medium text-xs mb-1">Capacity Estimation</div>
+          <p class="text-textMuted text-[11px] font-sans">DAU calculations, read-to-write ratios, QPS peak multipliers, and storage projections.</p>
         </div>
 
-        <div class="p-4 bg-bg rounded-lg border border-border">
-          <div class="text-accentEmerald font-bold mb-1">Step 3: Topology</div>
-          <div class="text-textPrimary font-semibold mb-1">High-Level Design</div>
-          <p class="text-textMuted text-[11px]">Anycast DNS, Edge CDNs, stateless gateway, message queues, and polyglot database tiering.</p>
+        <div class="p-4 bg-bg rounded border border-border">
+          <div class="text-accent font-semibold mb-1">Step 3: Topology</div>
+          <div class="text-textPrimary font-sans font-medium text-xs mb-1">High-Level Design</div>
+          <p class="text-textMuted text-[11px] font-sans">Anycast DNS, Edge CDNs, stateless gateway, message queues, and polyglot database tiering.</p>
         </div>
 
-        <div class="p-4 bg-bg rounded-lg border border-border">
-          <div class="text-accentIndigo font-bold mb-1">Step 4: Deep Dive</div>
-          <div class="text-textPrimary font-semibold mb-1">Bottleneck Resolution</div>
-          <p class="text-textMuted text-[11px]">Consistent hashing, sharding hot partitions, distributed caching thundering herds, and saga rollbacks.</p>
+        <div class="p-4 bg-bg rounded border border-border">
+          <div class="text-accentAmber font-semibold mb-1">Step 4: Deep Dive</div>
+          <div class="text-textPrimary font-sans font-medium text-xs mb-1">Bottleneck Resolution</div>
+          <p class="text-textMuted text-[11px] font-sans">Consistent hashing, partition hot-spotting, cache thundering herd guards, and saga rollbacks.</p>
         </div>
       </div>
     </section>
 
-    <!-- QUICKSTART & CLONE -->
-    <section class="panel p-6 sm:p-8 rounded-2xl flex flex-col gap-5">
+    <!-- LOCAL CLONE -->
+    <section id="quickstart" class="panel rounded-lg p-6 sm:p-8 flex flex-col gap-5">
       <div class="flex flex-col gap-1">
         <span class="text-xs font-mono uppercase text-accent tracking-wider font-semibold">04 • Study & Reference</span>
-        <h3 class="text-xl font-bold text-textPrimary">Clone the Full 152-File Base</h3>
+        <h3 class="text-lg font-semibold text-textPrimary">Clone the Full 152-File Base</h3>
       </div>
 
-      <div class="bg-bg rounded-xl border border-border p-4 font-mono text-xs overflow-x-auto text-textPrimary">
-        <div class="text-textMuted mb-2"># Clone the repository locally</div>
-        <div class="text-accent mb-3"><span class="text-textMuted">$</span> git clone https://github.com/Subhash6102003/cs-system-design-vault.git</div>
-
-        <div class="text-textMuted mb-2"># Open central registry and tracking dashboard</div>
-        <div class="text-accentEmerald"><span class="text-textMuted">$</span> cd cs-system-design-vault && code 00_MASTER_INDEX.md</div>
+      <div class="bg-bg rounded border border-border p-4 font-mono text-xs text-textPrimary overflow-x-auto space-y-3">
+        <div>
+          <span class="text-textDim"># 1. Clone the repository locally</span>
+          <div class="text-accent mt-0.5"><span class="text-textDim">$</span> git clone https://github.com/Subhash6102003/cs-system-design-vault.git</div>
+        </div>
+        <div>
+          <span class="text-textDim"># 2. Open central registry and tracking dashboard</span>
+          <div class="text-warmSand mt-0.5"><span class="text-textDim">$</span> cd cs-system-design-vault && code 00_MASTER_INDEX.md</div>
+        </div>
       </div>
     </section>
 
     <!-- AUTHOR CARD -->
-    <section class="panel rounded-xl p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6 border-border">
+    <section class="panel rounded-lg p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6">
       <div class="flex flex-col gap-1.5">
         <span class="text-xs font-mono uppercase text-accent tracking-wider font-semibold">Curated & Authored By</span>
-        <h3 class="text-xl font-bold text-textPrimary">Subhash Maurya</h3>
+        <h3 class="text-lg font-semibold text-textPrimary">Subhash Maurya</h3>
         <p class="text-xs text-textMuted max-w-xl leading-relaxed">
           Computer Science researcher, Android systems architect, and full-stack software engineer passionate about high-concurrency architecture.
         </p>
       </div>
 
       <div class="flex items-center gap-3 shrink-0">
-        <a href="https://github.com/Subhash6102003/cs-system-design-vault" target="_blank" rel="noreferrer" class="px-5 py-2.5 bg-accent hover:opacity-90 text-bg text-xs font-bold rounded-lg transition-opacity flex items-center gap-2">
+        <a href="https://github.com/Subhash6102003/cs-system-design-vault" target="_blank" rel="noreferrer" class="px-4 py-2 bg-accent hover:bg-accentHover text-textPrimary text-xs font-medium rounded transition-colors flex items-center gap-1.5">
           <span>GitHub Repo</span>
           <span>↗</span>
         </a>
-        <a href="https://www.linkedin.com/in/subhash-maurya-656905243/" target="_blank" rel="noreferrer" class="px-5 py-2.5 panel hover:bg-surfaceHover text-textPrimary text-xs font-semibold rounded-lg transition-colors flex items-center gap-2">
+        <a href="https://www.linkedin.com/in/subhash-maurya-656905243/" target="_blank" rel="noreferrer" class="px-4 py-2 panel panel-hover text-textPrimary text-xs font-medium rounded transition-colors flex items-center gap-1.5">
           <span>LinkedIn</span>
           <span>↗</span>
         </a>
@@ -396,16 +379,15 @@
 
   </main>
 
-  <!-- FOOTER -->
-  <footer class="border-t border-border py-8 px-6 sm:px-12 text-xs text-textMuted flex flex-col sm:flex-row items-center justify-between gap-4 max-w-6xl mx-auto w-full">
-    <div class="flex items-center gap-2">
-      <span class="w-2 h-2 rounded-full bg-accent"></span>
-      <span>SystemVault • 152-Module Engineering Knowledge Base • MIT License</span>
+  <!-- MINIMAL FOOTER -->
+  <footer class="border-t border-border py-6 px-6 sm:px-12 text-xs text-textMuted flex flex-col sm:flex-row items-center justify-between gap-3 max-w-5xl mx-auto w-full">
+    <div>
+      SystemVault • 152-Module Knowledge Base • Curated by Subhash Maurya. MIT License.
     </div>
-    <div class="flex items-center gap-6 font-mono text-[11px]">
+    <div class="flex items-center gap-5 font-mono text-[11px]">
       <a href="#overview" class="hover:text-textPrimary transition-colors">Overview</a>
       <a href="#domains" class="hover:text-textPrimary transition-colors">Domains</a>
-      <a href="https://github.com/Subhash6102003/cs-system-design-vault" target="_blank" rel="noreferrer" class="text-accent hover:underline">GitHub</a>
+      <a href="https://github.com/Subhash6102003/cs-system-design-vault" target="_blank" rel="noreferrer" class="hover:text-accent transition-colors">GitHub</a>
       <a href="https://www.linkedin.com/in/subhash-maurya-656905243/" target="_blank" rel="noreferrer" class="hover:text-textPrimary transition-colors">LinkedIn</a>
     </div>
   </footer>
